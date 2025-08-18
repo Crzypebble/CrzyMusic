@@ -1,86 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>MusicCollab - Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MusicCollab</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <!-- Sidebar -->
-  <aside class="sidebar">
-    <h2>🎵 MusicCollab</h2>
-    <nav>
-      <a href="index.html" class="active">Dashboard</a>
-      <a href="albums.html">Albums</a>
-      <a href="settings.html">Settings</a>
-    </nav>
+  <div class="sidebar">
+    <h2 class="logo">🎵 MusicCollab</h2>
+    <ul>
+      <li><a href="#" class="tab-link active" data-tab="dashboard">Dashboard</a></li>
+      <li><a href="#" class="tab-link" data-tab="projects">Projects</a></li>
+      <li><a href="#" class="tab-link" data-tab="albums">Albums</a></li>
+      <li><a href="#" class="tab-link" data-tab="settings">Settings</a></li>
+    </ul>
     <button id="logoutBtn" class="logout-btn">Logout</button>
-  </aside>
+  </div>
 
   <!-- Main Content -->
-  <main class="main">
-    <header class="page-header">
+  <div class="main-content">
+    <!-- Dashboard -->
+    <div id="dashboard" class="tab-content active">
       <h1>Dashboard</h1>
-      <div class="actions">
-        <button id="openProjectModal" class="btn">+ Create Project</button>
-        <button id="openAlbumModal" class="btn secondary">+ Create Album</button>
+      <div id="active-contributions" class="section hidden">
+        <h2>Active Contributions</h2>
+        <div class="card-container" id="active-contrib-list"></div>
       </div>
-    </header>
+      <div id="recent-projects" class="section">
+        <h2>Recent Projects</h2>
+        <div class="card-container" id="recent-projects-list"></div>
+      </div>
+      <div id="collab-projects" class="section">
+        <h2>Collab Projects</h2>
+        <div class="card-container" id="collab-projects-list"></div>
+      </div>
+    </div>
 
-    <!-- Projects Grid -->
-    <section id="projectGrid" class="grid">
-      <!-- Projects will be rendered here -->
-    </section>
-  </main>
+    <!-- Projects -->
+    <div id="projects" class="tab-content">
+      <h1>Projects</h1>
+      <button id="createProjectBtn" class="btn purple">+ Create Project</button>
+      <div class="card-container" id="projects-list"></div>
+    </div>
 
-  <!-- Project Modal -->
-  <div id="projectModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Create Project</h2>
-      <form id="projectForm">
-        <label>Project Name</label>
-        <input type="text" id="projectName" required>
+    <!-- Albums -->
+    <div id="albums" class="tab-content">
+      <h1>Albums</h1>
+      <button id="createAlbumBtn" class="btn teal">+ Create Album</button>
+      <div class="card-container" id="albums-list"></div>
+    </div>
 
-        <label>Description</label>
-        <textarea id="projectDesc" rows="3"></textarea>
-
-        <label>Cover Image</label>
-        <input type="file" id="projectImage" accept="image/*">
-
-        <label>Collaborators (comma separated)</label>
-        <input type="text" id="projectCollabs" placeholder="e.g. user1, user2">
-
-        <button type="submit" class="btn">Save Project</button>
-      </form>
+    <!-- Settings -->
+    <div id="settings" class="tab-content">
+      <h1>Settings</h1>
+      <div class="settings-container">
+        <label>
+          Username:
+          <input type="text" id="usernameInput" />
+        </label>
+        <label>
+          Avatar:
+          <input type="file" id="avatarUpload" />
+        </label>
+        <label>
+          Background:
+          <input type="file" id="backgroundUpload" accept="image/*,video/*,.gif" />
+        </label>
+        <button id="saveSettingsBtn" class="btn purple">Save Settings</button>
+      </div>
     </div>
   </div>
 
-  <!-- Album Modal -->
-  <div id="albumModal" class="modal">
+  <!-- Modals -->
+  <div id="projectModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Create Project</h2>
+      <input type="text" id="projectName" placeholder="Project Name" />
+      <textarea id="projectDesc" placeholder="Description"></textarea>
+      <input type="file" id="projectCover" accept="image/*" />
+      <button id="saveProjectBtn" class="btn purple">Save Project</button>
+    </div>
+  </div>
+
+  <div id="albumModal" class="modal hidden">
     <div class="modal-content">
       <span class="close">&times;</span>
       <h2>Create Album</h2>
-      <form id="albumForm">
-        <label>Album Name</label>
-        <input type="text" id="albumName" required>
-
-        <label>Description</label>
-        <textarea id="albumDesc" rows="3"></textarea>
-
-        <label>Cover Image</label>
-        <input type="file" id="albumImage" accept="image/*">
-
-        <label>Select Projects</label>
-        <div id="albumProjectSelect" class="checkbox-list">
-          <!-- Dynamically filled with projects -->
-        </div>
-
-        <button type="submit" class="btn">Save Album</button>
-      </form>
+      <input type="text" id="albumName" placeholder="Album Name" />
+      <textarea id="albumDesc" placeholder="Description"></textarea>
+      <input type="file" id="albumCover" accept="image/*" />
+      <button id="saveAlbumBtn" class="btn teal">Save Album</button>
     </div>
   </div>
 
   <script src="script.js"></script>
+  <script src="auth.js"></script>
+  <script src="projects.js"></script>
+  <script src="albums.js"></script>
+  <script src="settings.js"></script>
 </body>
 </html>
