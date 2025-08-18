@@ -500,4 +500,219 @@
       const { fileList } = fileSections[tabName];
       if (!fileList) return;
       fileList.innerHTML = '';
-      const files = (await idbGetByProject(projectId)).filter(f =>
+      const files = (await idbGetByProject(projectId)).filter(f => f.tab === tabName);
+      for (const f of files) {
+        const li = document.createElement('li');
+        li.className = 'file-item';
+
+        const preview = await buildPreview(f);
+        preview.classList.add('file-preview');
+
+        const name = document.createElement('div');
+        name.className = 'file-name';
+        name.textContent = `${f.name} (${Math.round(f.size/1024)} KB)`;
+
+        const actions = document.createElement('div');
+        actions.className = 'file-actions';
+
+        // View button (opens object URL in new tab)
+        const viewBtn = document.createElement('button');
+        viewBtn.className = 'btn btn-ghost';
+        viewBtn.textContent = 'Open';
+        viewBtn.addEventListener('click', async () => {
+          const fr = await idbGet(f.id);
+          const url = URL.createObjectURL(fr.blob);
+          window.open(url, '_blank');
+          setTimeout(() => URL.revokeObjectURL(url), 4000);
+        });
+
+        // Download button
+        const dlBtn = document.createElement('button');
+        dlBtn.className = 'btn btn-outline';
+        dlBtn.textContent = 'Download';
+        dlBtn.addEventListener('click', async () => {
+          const fr = await idbGet(f.id);
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(fr.blob);
+          a.download = f.name;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+        });
+
+        // Delete
+        const delBtn = document.createElement('button');
+        delBtn.className = 'btn btn-danger btn-ghost';
+        delBtn.textContent = 'Delete';
+        delBtn.addEventListener('click', async () => {
+          if (!confirm('Delete this file?')) return;
+          await idbDelete(f.id);
+          renderFileList(tabName);
+          touchProject();
+        });
+
+        actions.append(viewBtn, dlBtn, delBtn);
+        li.append(preview, name, actions);
+        fileList.appendChild(li);
+      }
+    }
+
+    async function buildPreview(f) {
+      const rec = await idbGet(f.id);
+      const url = URL.createObjectURL(rec.blob);
+      let el;
+      if (f.type.startsWith('image/')) {
+        el = new Image();
+        el.src = url;
+      } else if (f.type.startsWith('audio/')) {
+        el = document.createElement('audio');
+        el.src = url;
+        el.controls = true;
+      } else if (f.type.startsWith('video/')) {
+        el = document.createElement('video');
+        el.src = url;
+        el.controls = true;
+      } else if (f.type === 'application/pdf') {
+        el = document.createElement('iframe');
+        el.src = url;
+      } else {
+        el = document.createElement('div');
+        el.textContent = 'No preview';
+        el.style.display = 'grid';
+        el.style.placeItems = 'center';
+        el.style.background = '#1f1f2f';
+        el.style.color = '#9aa0b4';
+      }
+      // Revoke after element loads enough
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
+      return el;
+    }
+  }
+
+  function renderAlbumSelect(selectEl, selectedId='') {
+    if (!selectEl) return;
+    const albums = getAlbums();
+    selectEl.innerHTML = `<option value="">No album</option>` + albums.map(a => `<option value="${a.id}">${escapeHtml(a.title || 'Untitled')}</option>`).join('');
+    selectEl.value = selectedId || '';
+  }
+
+  /* ===============
+     ALBUMS PAGE
+     =============== */
+  function initAlbums() {
+    if (!ensureAuthed()) { location.href = 'index.html'; return; }
+    const grid = document.getElementById('album-grid');
+    const tpl = document.getElementById('album-card-tpl');
+
+    function render() {
+      grid.innerHTML = '';
+      const albums = getAlbums();
+      const projects = getProjects();
+
+      for (const a of albums) {
+        const node = tpl.content.firstElementChild.cloneNode(true);
+        const cover = node.querySelector('[data-cover]');
+        const titleInput = node.querySelector('[data-title]');
+        const coverInput = node.querySelector('[data-cover-input]');
+        const openBtn = node.querySelector('[data-open]');
+        const delBtn = node.querySelector('[data-delete]');
+        const projDiv = node.querySelector('[data-projects]');
+
+        titleInput.value = a.title || '';
+
+        // Cover preview (from stored coverFile if any)
+        if (a.coverFile && a.coverFile.blob) {
+          const url = URL.createObjectURL(a.coverFile.blob);
+          cover.style.backgroundImage = `url("${url}")`;
+          cover.style.backgroundSize = 'cover';
+          cover.style.backgroundPosition = 'center';
+          setTimeout(() => URL.revokeObjectURL(url), 10000);
+        }
+
+        // Project chips
+        const inAlbum = projects.filter(p => p.albumId === a.id);
+        projDiv.textContent = inAlbum.length ? inAlbum.map(p => p.title || 'Untitled').join(' • ') : 'No projects yet';
+
+        titleInput.addEventListener('change', () => {
+          a.title = titleInput.value.trim();
+          setAlbums(albums);
+        });
+
+        coverInput.addEventListener('change', async () => {
+          const f = coverInput.files[0];
+          if (!f) return;
+          a.coverFile = { name: f.name, type: f.type, size: f.size, blob: f, createdAt: nowISO() };
+          setAlbums(albums);
+          render(); // refresh preview
+        });
+
+        openBtn.addEventListener('click', () => {
+          // Filter dashboard by this album — for now just go to dashboard
+          location.href = `index.html`;
+        });
+
+        delBtn.addEventListener('click', () => {
+          if (!confirm('Delete this album? Projects remain, only the album entry is removed.')) return;
+          // Remove albumId from projects that used it
+          for (const p of projects) {
+            if (p.albumId === a.id) p.albumId = '';
+          }
+          setProjects(projects);
+          setAlbums(albums.filter(x => x.id !== a.id));
+          render();
+        });
+
+        grid.appendChild(node);
+      }
+    }
+
+    document.getElementById('new-album').addEventListener('click', () => {
+      const albums = getAlbums();
+      albums.unshift({ id: uid('alb'), title: 'New Album', createdAt: nowISO(), coverFile: null });
+      setAlbums(albums);
+      render();
+    });
+
+    render();
+  }
+
+  /* ===============
+     SETTINGS PAGE
+     =============== */
+  function initSettings() {
+    const profile = getProfile();
+    // Theme
+    const toggle = document.getElementById('theme-toggle');
+    toggle.checked = (localStorage.getItem(THEME_KEY) || 'dark') === 'dark';
+    toggle.addEventListener('change', (e) => {
+      const dark = toggle.checked;
+      localStorage.setItem(THEME_KEY, dark ? 'dark' : 'light');
+      document.body.classList.toggle('theme-dark', dark);
+      document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+    });
+
+    // Profile placeholders
+    const nameEl = document.getElementById('profile-name');
+    const tagEl = document.getElementById('profile-tagline');
+    nameEl.value = profile.name || '';
+    tagEl.value = profile.tagline || '';
+
+    document.getElementById('save-profile').addEventListener('click', () => {
+      setProfile({ name: nameEl.value.trim(), tagline: tagEl.value.trim() });
+      alert('Saved ✅');
+    });
+
+    // Logout
+    document.getElementById('logout').addEventListener('click', () => {
+      if (!confirm('Log out?')) return;
+      setAuthed(false);
+      location.href = 'index.html';
+    });
+  }
+
+  // --- Small helpers
+  function escapeHtml(str='') {
+    return str.replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[s]));
+  }
+})();
