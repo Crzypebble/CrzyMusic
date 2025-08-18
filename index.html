@@ -2,50 +2,85 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MusicCollab – Login</title>
+  <title>MusicCollab - Dashboard</title>
   <link rel="stylesheet" href="style.css">
-  <script defer src="script.js"></script>
 </head>
 <body>
-  <div class="auth-container" id="authContainer">
-    <h1>Welcome to MusicCollab</h1>
-    <div id="authForms">
-      <!-- Login form -->
-      <div id="loginForm">
-        <input type="email" id="loginEmail" placeholder="Email">
-        <input type="password" id="loginPassword" placeholder="Password">
-        <button onclick="loginUser()">Login</button>
-        <p>Don't have an account? <a href="#" onclick="showSignup()">Sign up</a></p>
-        <button class="google-btn" onclick="fakeGoogleLogin()">Continue with Google</button>
-      </div>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>🎵 MusicCollab</h2>
+    <nav>
+      <a href="index.html" class="active">Dashboard</a>
+      <a href="albums.html">Albums</a>
+      <a href="settings.html">Settings</a>
+    </nav>
+    <button id="logoutBtn" class="logout-btn">Logout</button>
+  </aside>
 
-      <!-- Signup form -->
-      <div id="signupForm" style="display:none;">
-        <input type="email" id="signupEmail" placeholder="Email">
-        <input type="password" id="signupPassword" placeholder="Password">
-        <button onclick="signupUser()">Sign Up</button>
-        <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+  <!-- Main Content -->
+  <main class="main">
+    <header class="page-header">
+      <h1>Dashboard</h1>
+      <div class="actions">
+        <button id="openProjectModal" class="btn">+ Create Project</button>
+        <button id="openAlbumModal" class="btn secondary">+ Create Album</button>
       </div>
+    </header>
+
+    <!-- Projects Grid -->
+    <section id="projectGrid" class="grid">
+      <!-- Projects will be rendered here -->
+    </section>
+  </main>
+
+  <!-- Project Modal -->
+  <div id="projectModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Create Project</h2>
+      <form id="projectForm">
+        <label>Project Name</label>
+        <input type="text" id="projectName" required>
+
+        <label>Description</label>
+        <textarea id="projectDesc" rows="3"></textarea>
+
+        <label>Cover Image</label>
+        <input type="file" id="projectImage" accept="image/*">
+
+        <label>Collaborators (comma separated)</label>
+        <input type="text" id="projectCollabs" placeholder="e.g. user1, user2">
+
+        <button type="submit" class="btn">Save Project</button>
+      </form>
     </div>
   </div>
 
-  <div id="app" style="display:none;">
-    <aside class="sidebar">
-      <h2>🎵 MusicCollab</h2>
-      <nav>
-        <a href="index.html" class="active">Dashboard</a>
-        <a href="albums.html">Albums</a>
-        <a href="settings.html">Settings</a>
-      </nav>
-      <button id="logoutBtn" onclick="logoutUser()">Logout</button>
-    </aside>
+  <!-- Album Modal -->
+  <div id="albumModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Create Album</h2>
+      <form id="albumForm">
+        <label>Album Name</label>
+        <input type="text" id="albumName" required>
 
-    <main class="content">
-      <h1>Dashboard</h1>
-      <button onclick="createProject()">+ Create Project</button>
-      <div id="projectsList" class="grid"></div>
-    </main>
+        <label>Description</label>
+        <textarea id="albumDesc" rows="3"></textarea>
+
+        <label>Cover Image</label>
+        <input type="file" id="albumImage" accept="image/*">
+
+        <label>Select Projects</label>
+        <div id="albumProjectSelect" class="checkbox-list">
+          <!-- Dynamically filled with projects -->
+        </div>
+
+        <button type="submit" class="btn">Save Album</button>
+      </form>
+    </div>
   </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
