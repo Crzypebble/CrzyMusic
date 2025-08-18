@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-page="index">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Music Notebook — Login & Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="theme-dark">
+  <header class="app-header">
+    <a class="brand" href="index.html">🎛️ Music Notebook</a>
+    <nav class="nav">
+      <a href="index.html" class="active">Dashboard</a>
+      <a href="albums.html">Albums</a>
+      <a href="settings.html">Settings</a>
+    </nav>
+  </header>
+
+  <!-- LOGIN SCREEN -->
+  <main id="login-screen" class="centered-screen">
+    <div class="card card-lg">
+      <h1>Welcome</h1>
+      <p class="muted">Sign in to manage your projects. (Placeholder only)</p>
+      <button id="google-login" class="btn btn-google">
+        <span class="google-dot"></span>
+        Continue with Google
+      </button>
+      <button id="guest-login" class="btn btn-ghost" style="margin-top:12px;">
+        Continue as Guest
+      </button>
+    </div>
+  </main>
+
+  <!-- DASHBOARD -->
+  <main id="dashboard" class="page wrap">
+    <section class="toolbar">
+      <h2>Recent Projects</h2>
+      <div class="spacer"></div>
+      <button id="new-project" class="btn btn-primary">+ New Project</button>
+    </section>
+
+    <section id="project-grid" class="grid grid-cards"></section>
+
+    <template id="project-card-tpl">
+      <a class="card card-link project-card">
+        <div class="card-body">
+          <div class="project-cover" data-cover></div>
+          <h3 data-title></h3>
+          <p class="muted" data-updated></p>
+        </div>
+      </a>
+    </template>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
