@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" data-page="albums">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Music Notebook — Albums</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="theme-dark">
+  <header class="app-header">
+    <a class="brand" href="index.html">🎛️ Music Notebook</a>
+    <nav class="nav">
+      <a href="index.html">Dashboard</a>
+      <a class="active" href="albums.html">Albums</a>
+      <a href="settings.html">Settings</a>
+    </nav>
+  </header>
+
+  <main class="page wrap">
+    <section class="toolbar">
+      <h2>Albums</h2>
+      <div class="spacer"></div>
+      <button id="new-album" class="btn btn-primary">+ New Album</button>
+    </section>
+
+    <section id="album-grid" class="grid grid-cards"></section>
+
+    <template id="album-card-tpl">
+      <div class="card album-card">
+        <div class="album-cover" data-cover></div>
+        <div class="card-body">
+          <input class="input" data-title placeholder="Album title" />
+          <div class="flex gap">
+            <label class="btn btn-outline file-btn">
+              Set Cover
+              <input type="file" accept="image/*" data-cover-input hidden />
+            </label>
+            <button class="btn btn-ghost" data-open>Open</button>
+            <button class="btn btn-danger btn-ghost" data-delete>Delete</button>
+          </div>
+          <div class="album-projects" data-projects></div>
+        </div>
+      </div>
+    </template>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
