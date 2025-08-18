@@ -1,56 +1,43 @@
 <!DOCTYPE html>
-<html lang="en" data-page="settings">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Music Notebook — Settings</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings – MusicCollab</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
 </head>
-<body class="theme-dark">
-  <header class="app-header">
-    <a class="brand" href="index.html">🎛️ Music Notebook</a>
-    <nav class="nav">
+<body>
+  <aside class="sidebar">
+    <h2>🎵 MusicCollab</h2>
+    <nav>
       <a href="index.html">Dashboard</a>
       <a href="albums.html">Albums</a>
-      <a class="active" href="settings.html">Settings</a>
+      <a href="settings.html" class="active">Settings</a>
     </nav>
-  </header>
+    <button onclick="logoutUser()">Logout</button>
+  </aside>
 
-  <main class="page wrap settings">
-    <section class="card">
-      <div class="card-body">
-        <h2>Appearance</h2>
-        <div class="flex gap">
-          <label class="switch">
-            <input type="checkbox" id="theme-toggle" />
-            <span>Dark mode</span>
-          </label>
-        </div>
-      </div>
+  <main class="content">
+    <h1>Settings</h1>
+
+    <section>
+      <h2>Theme</h2>
+      <button onclick="toggleTheme()">Toggle Light/Dark</button>
     </section>
 
-    <section class="card">
-      <div class="card-body">
-        <h2>Profile (Placeholder)</h2>
-        <div class="profile">
-          <div class="avatar">👤</div>
-          <div class="grow">
-            <input id="profile-name" class="input" placeholder="Display name" />
-            <input id="profile-tagline" class="input" placeholder="Tagline" />
-          </div>
-        </div>
-        <button id="save-profile" class="btn btn-primary">Save</button>
-      </div>
+    <section id="profileSettings">
+      <h2>Profile</h2>
+      <img id="avatar" src="https://via.placeholder.com/80" alt="Avatar">
+      <input type="file" id="avatarUpload" onchange="uploadAvatar(event)">
+      <p>Email: <span id="profileEmail"></span></p>
     </section>
 
-    <section class="card">
-      <div class="card-body">
-        <h2>Session</h2>
-        <button id="logout" class="btn btn-danger">Log out</button>
-      </div>
+    <section>
+      <h2>Background</h2>
+      <input type="file" id="bgUpload" onchange="uploadBackground(event)">
+      <button onclick="clearBackground()">Reset Background</button>
     </section>
   </main>
-
-  <script src="script.js"></script>
 </body>
 </html>
