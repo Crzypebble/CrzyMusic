@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project – MusicCollab</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <h2>🎵 MusicCollab</h2>
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="albums.html">Albums</a>
+      <a href="settings.html">Settings</a>
+    </nav>
+    <button onclick="logoutUser()">Logout</button>
+  </aside>
+
+  <main class="content">
+    <h1 id="projectTitle">Project</h1>
+    <div class="tabs" id="tabButtons"></div>
+    <div id="tabContent"></div>
+    <button onclick="exportProject()">⬇ Export Project</button>
+  </main>
+</body>
+</html>
