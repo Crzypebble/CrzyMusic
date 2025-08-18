@@ -1,186 +1,106 @@
-/* ==========
-   Music Notebook — Base Styles
-   Neon purple/blue accent, dark by default, responsive & clean.
-   ========== */
-
-:root {
-  --bg: #0b0b11;
-  --bg-elev: #121222;
-  --text: #e7e7f2;
-  --muted: #9aa0b4;
-  --card: #111122;
-  --border: #2a2a44;
-  --accent1: #7b61ff;         /* neon purple */
-  --accent2: #2dd4ff;         /* neon blue   */
-  --shadow: 0 10px 30px rgba(0,0,0,0.35);
-  --radius: 16px;
-  --radius-lg: 20px;
-  --focus: 0 0 0 3px rgba(123,97,255,0.35), 0 0 0 6px rgba(45,212,255,0.25);
-}
-
-:root[data-theme="light"] {
-  --bg: #f7f8fb;
-  --bg-elev: #ffffff;
-  --text: #0c0c1a;
-  --muted: #5b6175;
-  --card: #ffffff;
-  --border: #e7e7ef;
-  --shadow: 0 10px 30px rgba(60,60,80,0.15);
-}
-
-* { box-sizing: border-box; }
-html, body { height: 100%; }
+/* Global */
 body {
   margin: 0;
-  font: 16px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-  background: radial-gradient(1200px 600px at 100% -10%, rgba(45,212,255,0.08), transparent 60%),
-              radial-gradient(900px 500px at -20% 0%, rgba(123,97,255,0.10), transparent 55%),
-              var(--bg);
+  font-family: Arial, sans-serif;
+  background: var(--bg);
   color: var(--text);
+  transition: background 0.3s, color 0.3s;
 }
 
-/* Header / Nav */
-.app-header {
-  position: sticky; top: 0; z-index: 20;
-  display: flex; align-items: center; gap: 16px;
-  padding: 14px 18px;
-  border-bottom: 1px solid var(--border);
-  backdrop-filter: saturate(1.2) blur(6px);
-  background: color-mix(in oklab, var(--bg), transparent 20%);
+:root {
+  --bg: #0a0a0f;
+  --text: #f1f1f1;
+  --accent: #8a2be2;
 }
-.brand {
-  font-weight: 800; text-decoration: none; color: var(--text);
-  background: linear-gradient(90deg, var(--accent1), var(--accent2));
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  font-size: 18px;
+body.light {
+  --bg: #fdfdfd;
+  --text: #111;
 }
-.nav a {
-  color: var(--muted); text-decoration: none; padding: 6px 10px; border-radius: 10px;
-}
-.nav a.active, .nav a:hover { color: var(--text); background: rgba(123,97,255,0.12); }
 
-/* Layout */
-.page { padding: 20px; max-width: 1200px; margin: 0 auto; }
-.wrap { padding-bottom: 60px; }
-.toolbar { display:flex; align-items:center; gap:12px; margin: 10px 0 18px; }
-.spacer { flex: 1; }
-.breadcrumbs { display:flex; align-items:center; gap:8px; }
-.centered-screen { display:flex; align-items:center; justify-content:center; min-height: calc(100vh - 68px); padding: 20px; }
-
-/* Cards */
-.card {
-  background: linear-gradient(180deg, color-mix(in oklab, var(--card), transparent 6%), var(--card));
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  margin-bottom: 16px;
+/* Auth */
+.auth-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
-.card-lg { padding: 28px 24px; max-width: 420px; width: 100%; text-align:center; }
-.card-body { padding: 16px; }
-.card-link { text-decoration: none; color: inherit; display: block; }
-.card-link:hover { transform: translateY(-2px); transition: .15s ease; }
-
-/* Inputs & Buttons */
-.input {
-  background: var(--bg-elev);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 10px 12px;
-  outline: none;
-  min-width: 0;
+.auth-container input {
+  display: block;
+  margin: 5px;
+  padding: 10px;
 }
-.input:focus { box-shadow: var(--focus); }
-.input-compact { padding: 6px 8px; }
-.btn {
-  border: 1px solid var(--border);
-  background: var(--bg-elev);
-  color: var(--text);
-  padding: 10px 14px;
-  border-radius: 12px;
+.google-btn {
+  background: #4285f4;
+  color: white;
+  padding: 10px;
+  border: none;
   cursor: pointer;
 }
-.btn:hover { transform: translateY(-1px); }
-.btn-primary {
+
+/* Layout */
+.sidebar {
+  width: 200px;
+  height: 100vh;
+  background: #111;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.sidebar nav a {
+  display: block;
+  padding: 10px;
+  color: white;
+  text-decoration: none;
+}
+.sidebar nav a.active {
+  background: var(--accent);
+  border-radius: 6px;
+}
+.sidebar button {
+  margin-top: auto;
+  padding: 10px;
+  background: crimson;
+  color: white;
   border: none;
-  background: linear-gradient(90deg, var(--accent1), var(--accent2));
-  color: #fff;
+  cursor: pointer;
 }
-.btn-outline {
-  background: transparent; border: 1px solid color-mix(in oklab, var(--accent1), var(--border) 40%);
+.content {
+  margin-left: 220px;
+  padding: 20px;
 }
-.btn-ghost {
-  background: transparent; border-color: transparent;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+  gap: 15px;
 }
-.btn-danger { border-color: #ff557a55; color:#ff8aa3; }
-.btn-google { display:flex; align-items:center; justify-content:center; gap:10px; }
-.google-dot { width:14px; height:14px; border-radius:50%; background: conic-gradient(#ea4335 0 25%, #fbbc05 25% 50%, #34a853 50% 75%, #4285f4 75% 100%); }
-
-/* Grid */
-.grid { display:grid; gap: 14px; }
-.grid-cards { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
-
-/* Project/Album cards */
-.project-cover, .album-cover {
-  height: 140px;
-  border-radius: 12px;
-  background: linear-gradient(120deg, rgba(123,97,255,0.25), rgba(45,212,255,0.25));
-  border: 1px dashed var(--border);
-  margin-bottom: 10px;
+.grid div {
+  background: rgba(255,255,255,0.05);
+  padding: 15px;
+  border-radius: 8px;
 }
-.album-card .album-cover { height: 180px; }
-
-/* Tabs */
-.tabs-wrap { overflow: hidden; }
+button {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+}
 .tabs {
-  display: flex; gap: 10px; align-items: center; padding: 10px; border-bottom: 1px solid var(--border);
-  overflow-x: auto;
+  display: flex;
+  gap: 10px;
 }
-.tab {
-  border: 1px solid var(--border);
-  background: color-mix(in oklab, var(--bg-elev), transparent 10%);
-  color: var(--text);
-  padding: 8px 12px; border-radius: 10px; cursor: pointer; flex: 0 0 auto;
+.tabs button {
+  padding: 8px;
 }
-.tab.active { background: linear-gradient(90deg, rgba(123,97,255,0.25), rgba(45,212,255,0.25)); border-color: transparent; }
-.add-tab { display:flex; align-items:center; gap:6px; padding: 0; border: none; background: transparent; }
-.btn-compact { padding: 6px 10px; border-radius: 10px; }
-.tab-panels { padding: 12px; }
-.tab-panel { display: none; }
-.tab-panel.active { display: block; }
-
-/* Editor + Uploader layout */
-.split { display:flex; gap: 14px; flex-wrap: wrap; }
-.editor { flex: 1 1 380px; min-height: 260px; width: 100%; resize: vertical; border-radius: 12px; border:1px solid var(--border); background: var(--bg-elev); color: var(--text); padding:12px; }
-.uploader { flex: 1 1 320px; min-width: 320px; }
-.file-btn { position: relative; overflow: hidden; }
-.file-list { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 10px; }
-.file-item {
-  display:flex; gap:10px; padding:10px; background: var(--bg-elev); border:1px solid var(--border);
-  border-radius: 10px; align-items: center;
-}
-.file-preview { width: 120px; height: 72px; border-radius: 8px; background:#000; object-fit: cover; }
-.file-name { flex:1; word-break: break-word; }
-.file-actions { display:flex; gap:8px; }
-
-/* Albums page */
-.album-projects { margin-top: 8px; color: var(--muted); font-size: 14px; }
-
-/* Settings */
-.switch { display:flex; align-items:center; gap:10px; }
-.profile { display:flex; align-items:center; gap:12px; }
-.avatar { width:64px; height:64px; border-radius: 50%; display:grid; place-items:center; font-size:30px; background: linear-gradient(120deg, rgba(123,97,255,0.25), rgba(45,212,255,0.25)); }
-
-/* Helpers */
-.flex { display:flex; align-items:center; }
-.gap { gap: 10px; }
-.grow { flex: 1; }
-.muted { color: var(--muted); }
-h1,h2,h3 { margin: 8px 0 10px; }
-
-/* Responsive */
-@media (max-width: 720px) {
-  .nav { display:none; }
-  .app-header { justify-content: space-between; }
-  .editor { min-height: 180px; }
+#tabContent textarea {
+  width: 100%;
+  height: 200px;
+  margin-top: 10px;
 }
