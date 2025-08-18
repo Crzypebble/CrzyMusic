@@ -1,29 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project – MusicCollab</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MusicCollab – Project</title>
+  <link rel="stylesheet" href="style.css"/>
   <script defer src="script.js"></script>
 </head>
-<body>
+<body class="app">
   <aside class="sidebar">
-    <h2>🎵 MusicCollab</h2>
-    <nav>
-      <a href="index.html">Dashboard</a>
-      <a href="albums.html">Albums</a>
-      <a href="settings.html">Settings</a>
+    <div class="brand">
+      <span class="logo">🎵</span><span>MusicCollab</span>
+    </div>
+    <nav class="nav">
+      <a class="nav-link" href="index.html">Dashboard</a>
+      <a class="nav-link" href="albums.html">Albums</a>
+      <a class="nav-link" href="settings.html">Settings</a>
     </nav>
-    <button onclick="logoutUser()">Logout</button>
+    <div class="nav-footer">
+      <div class="user-chip">
+        <img id="sidebarAvatar" src="" alt="avatar"/>
+        <div>
+          <div id="sidebarUsername">User</div>
+          <small id="sidebarEmail"></small>
+        </div>
+      </div>
+      <button id="logoutBtn" class="btn danger full">Logout</button>
+    </div>
   </aside>
 
-  <main class="content">
-    <h1 id="projectTitle">Project</h1>
-    <div class="tabs" id="tabButtons"></div>
-    <div id="tabContent"></div>
-    <button onclick="exportProject()">⬇ Export Project</button>
+  <main class="main">
+    <header class="page-header">
+      <div class="title-stack">
+        <h1 id="projTitle">Project</h1>
+        <p id="projMeta" class="muted"></p>
+      </div>
+      <div class="row gap">
+        <button id="toggleActiveBtn" class="btn ghost">Mark Active</button>
+        <button id="exportBtn" class="btn primary">Export</button>
+        <button id="deleteProjectBtn" class="btn danger">Delete Project</button>
+      </div>
+    </header>
+
+    <!-- Tabs -->
+    <div class="tabs" id="projTabs"></div>
+    <div id="tabPanel" class="tab-panel"></div>
   </main>
+
+  <div id="bgLayer"></div>
 </body>
 </html>
-
