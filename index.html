@@ -1,57 +1,51 @@
 <!DOCTYPE html>
-<html lang="en" data-page="index">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Music Notebook — Login & Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MusicCollab – Login</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
 </head>
-<body class="theme-dark">
-  <header class="app-header">
-    <a class="brand" href="index.html">🎛️ Music Notebook</a>
-    <nav class="nav">
-      <a href="index.html" class="active">Dashboard</a>
-      <a href="albums.html">Albums</a>
-      <a href="settings.html">Settings</a>
-    </nav>
-  </header>
+<body>
+  <div class="auth-container" id="authContainer">
+    <h1>Welcome to MusicCollab</h1>
+    <div id="authForms">
+      <!-- Login form -->
+      <div id="loginForm">
+        <input type="email" id="loginEmail" placeholder="Email">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <button onclick="loginUser()">Login</button>
+        <p>Don't have an account? <a href="#" onclick="showSignup()">Sign up</a></p>
+        <button class="google-btn" onclick="fakeGoogleLogin()">Continue with Google</button>
+      </div>
 
-  <!-- LOGIN SCREEN -->
-  <main id="login-screen" class="centered-screen">
-    <div class="card card-lg">
-      <h1>Welcome</h1>
-      <p class="muted">Sign in to manage your projects. (Placeholder only)</p>
-      <button id="google-login" class="btn btn-google">
-        <span class="google-dot"></span>
-        Continue with Google
-      </button>
-      <button id="guest-login" class="btn btn-ghost" style="margin-top:12px;">
-        Continue as Guest
-      </button>
+      <!-- Signup form -->
+      <div id="signupForm" style="display:none;">
+        <input type="email" id="signupEmail" placeholder="Email">
+        <input type="password" id="signupPassword" placeholder="Password">
+        <button onclick="signupUser()">Sign Up</button>
+        <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+      </div>
     </div>
-  </main>
+  </div>
 
-  <!-- DASHBOARD -->
-  <main id="dashboard" class="page wrap">
-    <section class="toolbar">
-      <h2>Recent Projects</h2>
-      <div class="spacer"></div>
-      <button id="new-project" class="btn btn-primary">+ New Project</button>
-    </section>
+  <div id="app" style="display:none;">
+    <aside class="sidebar">
+      <h2>🎵 MusicCollab</h2>
+      <nav>
+        <a href="index.html" class="active">Dashboard</a>
+        <a href="albums.html">Albums</a>
+        <a href="settings.html">Settings</a>
+      </nav>
+      <button id="logoutBtn" onclick="logoutUser()">Logout</button>
+    </aside>
 
-    <section id="project-grid" class="grid grid-cards"></section>
-
-    <template id="project-card-tpl">
-      <a class="card card-link project-card">
-        <div class="card-body">
-          <div class="project-cover" data-cover></div>
-          <h3 data-title></h3>
-          <p class="muted" data-updated></p>
-        </div>
-      </a>
-    </template>
-  </main>
-
-  <script src="script.js"></script>
+    <main class="content">
+      <h1>Dashboard</h1>
+      <button onclick="createProject()">+ Create Project</button>
+      <div id="projectsList" class="grid"></div>
+    </main>
+  </div>
 </body>
 </html>
