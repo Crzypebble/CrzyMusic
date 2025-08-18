@@ -1,27 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Albums – MusicCollab</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MusicCollab – Albums</title>
+  <link rel="stylesheet" href="style.css"/>
   <script defer src="script.js"></script>
 </head>
-<body>
+<body class="app">
   <aside class="sidebar">
-    <h2>🎵 MusicCollab</h2>
-    <nav>
-      <a href="index.html">Dashboard</a>
-      <a href="albums.html" class="active">Albums</a>
-      <a href="settings.html">Settings</a>
+    <div class="brand">
+      <span class="logo">🎵</span><span>MusicCollab</span>
+    </div>
+    <nav class="nav">
+      <a class="nav-link" href="index.html">Dashboard</a>
+      <a class="nav-link active" href="albums.html">Albums</a>
+      <a class="nav-link" href="settings.html">Settings</a>
     </nav>
-    <button onclick="logoutUser()">Logout</button>
+    <div class="nav-footer">
+      <div class="user-chip">
+        <img id="sidebarAvatar" src="" alt="avatar"/>
+        <div>
+          <div id="sidebarUsername">User</div>
+          <small id="sidebarEmail"></small>
+        </div>
+      </div>
+      <button id="logoutBtn" class="btn danger full">Logout</button>
+    </div>
   </aside>
 
-  <main class="content">
-    <h1>Albums</h1>
-    <button onclick="createAlbum()">+ Create Album</button>
-    <div id="albumsGrid" class="grid"></div>
+  <main class="main">
+    <header class="page-header">
+      <h1>Albums</h1>
+      <div class="row gap">
+        <button id="openCreateAlbum" class="btn teal">+ Create Album</button>
+        <button id="openCreateProject" class="btn primary">+ Create Project</button>
+      </div>
+    </header>
+
+    <section class="section">
+      <div id="albumsGrid" class="grid cards"></div>
+      <div id="albumsEmpty" class="empty hidden">
+        <p>No albums yet.</p>
+        <button id="openCreateAlbum2" class="btn teal">Create your first album</button>
+      </div>
+    </section>
   </main>
+
+  <!-- Album Modal -->
+  <div id="albumModal" class="modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Create Album</h3>
+        <button class="icon-btn" data-close="albumModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <label>Title <input id="albumTitle" type="text" placeholder="Album name" /></label>
+        <label>Description <textarea id="albumDesc" placeholder="What’s this album about?"></textarea></label>
+        <label>Cover <input id="albumCover" type="file" accept="image/*"/></label>
+      </div>
+      <div class="modal-footer">
+        <button class="btn ghost" data-close="albumModal">Cancel</button>
+        <button id="saveAlbumBtn" class="btn teal">Save Album</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project Modal (can also assign to album) -->
+  <div id="projectModal" class="modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Create Project</h3>
+        <button class="icon-btn" data-close="projectModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <label>Title <input id="projName" type="text" placeholder="Project title"/></label>
+        <label>Description <textarea id="projDesc" placeholder="Short description"></textarea></label>
+        <label>Cover <input id="projCover" type="file" accept="image/*"/></label>
+        <label>Collaborators (comma separated) <input id="projCollabs" type="text" placeholder="alice, bob"/></label>
+        <label>Assign to album
+          <select id="projAlbumSelect"></select>
+        </label>
+        <label><input id="projActive" type="checkbox"/> Mark as active</label>
+      </div>
+      <div class="modal-footer">
+        <button class="btn ghost" data-close="projectModal">Cancel</button>
+        <button id="saveProjectBtn" class="btn primary">Save Project</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Album Manage Sheet -->
+  <div id="albumSheet" class="sheet">
+    <div class="sheet-card">
+      <div class="sheet-header">
+        <h3 id="sheetTitle">Manage Album</h3>
+        <button class="icon-btn" data-close="albumSheet">✕</button>
+      </div>
+      <div class="sheet-body">
+        <div class="album-info">
+          <img id="sheetCover" src="" alt="cover"/>
+          <div>
+            <p id="sheetDesc" class="muted"></p>
+            <button id="deleteAlbumBtn" class="btn danger">Delete Album</button>
+          </div>
+        </div>
+        <h4>Projects in this album</h4>
+        <div id="sheetProjectList" class="pill-list"></div>
+        <h4>Add / Remove Projects</h4>
+        <div id="sheetProjectPicker" class="checklist"></div>
+      </div>
+      <div class="sheet-footer">
+        <button class="btn ghost" data-close="albumSheet">Close</button>
+        <button id="saveAlbumProjectsBtn" class="btn teal">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="bgLayer"></div>
 </body>
 </html>
