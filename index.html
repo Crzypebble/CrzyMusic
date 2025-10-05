@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRZYCLAN Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-dark-gradient min-h-screen text-white">
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-white glow-text">CRZY<span class="text-red-600">CLAN</span></h1>
+        <div class="hidden md:flex space-x-6">
+            <a href="index.html" class="nav-item text-gray-300 hover:text-white">Home</a>
+            <a href="music.html" class="nav-item text-gray-300 hover:text-white">Music</a>
+            <a href="social.html" class="nav-item text-gray-300 hover:text-white">Pebble's Corner</a>
+            <a href="journal.html" class="nav-item text-gray-300 hover:text-white">Journal</a>
+            <a href="settings.html" class="nav-item text-gray-300 hover:text-white">Settings</a>
+        </div>
+        <button id="mobile-menu-button" class="md:hidden text-gray-300 hover:text-white"><i data-feather="menu"></i></button>
+    </div>
+</nav>
+
+<main class="pt-24 container mx-auto px-4 text-center">
+    <h2 class="text-4xl font-bold glow-text mb-6">Welcome to CRZYCLAN's Eyes</h2>
+    <p class="text-gray-400 mb-8">Choose an app to enter:</p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <a href="music.html" class="glass-card p-6 rounded-xl hover:scale-105 transition">
+            <i data-feather="music" class="w-8 h-8 text-red-500 mb-2"></i>
+            <h3 class="text-lg font-semibold">Music</h3>
+        </a>
+        <a href="social.html" class="glass-card p-6 rounded-xl hover:scale-105 transition">
+            <i data-feather="users" class="w-8 h-8 text-red-500 mb-2"></i>
+            <h3 class="text-lg font-semibold">Pebble's Corner</h3>
+        </a>
+        <a href="journal.html" class="glass-card p-6 rounded-xl hover:scale-105 transition">
+            <i data-feather="book-open" class="w-8 h-8 text-red-500 mb-2"></i>
+            <h3 class="text-lg font-semibold">Journal</h3>
+        </a>
+        <a href="settings.html" class="glass-card p-6 rounded-xl hover:scale-105 transition">
+            <i data-feather="settings" class="w-8 h-8 text-red-500 mb-2"></i>
+            <h3 class="text-lg font-semibold">Settings</h3>
+        </a>
+    </div>
+</main>
+
+<script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal | CRZYCLANs Eyes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-dark-gradient min-h-screen text-white">
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-white glow-text">CRZY<span class="text-red-600">CLAN</span></h1>
+        <div class="hidden md:flex space-x-6">
+            <a href="index.html" class="nav-item text-gray-300 hover:text-white">Home</a>
+            <a href="music.html" class="nav-item text-gray-300 hover:text-white">Music</a>
+            <a href="social.html" class="nav-item text-gray-300 hover:text-white">Pebble's Corner</a>
+            <a href="journal.html" class="nav-item text-red-500 border-b border-red-500">Journal</a>
+            <a href="settings.html" class="nav-item text-gray-300 hover:text-white">Settings</a>
+        </div>
+        <button id="mobile-menu-button" class="md:hidden text-gray-300 hover:text-white"><i data-feather="menu"></i></button>
+    </div>
+</nav>
+
+<main class="pt-24 container mx-auto px-4">
+    <h2 class="text-3xl font-bold glow-text mb-6 text-center">My Journal</h2>
+    <div class="glass-card p-6 rounded-xl space-y-4">
+        <textarea id="journalInput" placeholder="Write your thoughts..." class="w-full p-3 rounded-lg bg-black/40 border border-gray-700 focus:outline-none focus:ring-1 focus:ring-red-500 min-h-[200px]"></textarea>
+        <button id="saveJournal" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">Save Entry</button>
+    </div>
+    <div class="mt-8 space-y-4" id="entries"></div>
+</main>
+
+<script src="js/script.js"></script>
+<script>
+    const journalInput = document.getElementById('journalInput');
+    const saveBtn = document.getElementById('saveJournal');
+    const entries = document.getElementById('entries');
+
+    function loadEntries() {
+        entries.innerHTML = '';
+        const saved = JSON.parse(localStorage.getItem('journalEntries') || '[]');
+        saved.forEach(text => {
+            const div = document.createElement('div');
+            div.className = 'glass-card p-4 rounded-lg';
+            div.innerHTML = `<p>${text}</p>`;
+            entries.appendChild(div);
+        });
+    }
+
+    saveBtn.addEventListener('click', () => {
+        const saved = JSON.parse(localStorage.getItem('journalEntries') || '[]');
+        if (journalInput.value.trim()) {
+            saved.unshift(journalInput.value.trim());
+            localStorage.setItem('journalEntries', JSON.stringify(saved));
+            journalInput.value = '';
+            loadEntries();
+        }
+    });
+
+    loadEntries();
+</script>
+</body>
+</html>
