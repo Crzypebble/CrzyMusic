@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+    color: #e2e8f0;
+}
+
+.glow-text {
+    text-shadow: 0 0 8px rgba(220, 38, 38, 0.7);
+}
+
+.nav-item:hover {
+    text-shadow: 0 0 12px rgba(220, 38, 38, 0.9);
+}
+
+.glass-card {
+    backdrop-filter: blur(16px);
+    background: rgba(26, 26, 46, 0.5);
+    border: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+.glass-card:hover {
+    border-color: rgba(220, 38, 38, 0.6);
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
+}
+
+.bg-dark-gradient {
+    background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+}
