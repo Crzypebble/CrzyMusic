@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRZYCLAN Music</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="music-page">
+
+  <header class="navbar">
+    <h1>CRZYCLAN <span class="accent">Music</span></h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="music.html" class="active">Music</a>
+      <a href="journal.html">Journal</a>
+      <a href="settings.html">Settings</a>
+    </nav>
+  </header>
+
+  <main id="musicContent">
+    <section id="albumList" class="albums">
+      <h2>Featured Albums</h2>
+      <div id="albumGrid" class="grid"></div>
+    </section>
+
+    <section id="albumView" class="hidden">
+      <button id="backToMusic">← Back</button>
+      <div id="albumDetails"></div>
+      <div id="trackList"></div>
+    </section>
+
+    <section id="myUploads">
+      <h2>My Uploads</h2>
+      <input type="file" id="uploadInput" accept=".mp3" multiple>
+      <div id="uploadList"></div>
+    </section>
+
+    <section id="projects">
+      <h2>My Projects</h2>
+      <button id="newProjectBtn">New Project</button>
+      <div id="projectList"></div>
+    </section>
+  </main>
+
+  <footer>
+    <audio id="audioPlayer" controls></audio>
+  </footer>
+
+  <script>
+    // Fetch album data
+    const albumGrid = document.getElementById("albumGrid");
+    const albumList = document.getElementById("albumList");
+    const albumView = document.getElementById("albumView");
+    const albumDetails = document.getElementById("albumDetails");
+    const trackList = document.getElementById("trackList");
+    const backBtn = document.getElementById("backToMusic");
+    const audioPlayer = document.getElementById("audioPlayer");
+
+    fetch("musicdata.json")
+      .then(res => res.json())
+      .then(data => {
+        data.albums.forEach(album => {
+          const card = document.createElement("div");
+          card.className = "album-card";
+          card.innerHTML = `
+            <img src="${album.cover}" alt="${album.title}">
+            <h3>${album.title}</h3>
+            <p>${album.artist}</p>
+          `;
+          card.onclick = () => openAlbum(album);
+          albumGrid.appendChild(card);
+        });
+
+        // If linked with ?album= query
+        const params = new URLSearchParams(window.location.search);
+        const target = params.get("album");
+        if (target) {
+          const album = data.albums.find(a => a.title === target);
+          if (album) openAlbum(album);
+        }
+      });
+
+    function openAlbum(album) {
+      albumList.classList.add("hidden");
+      albumView.classList.remove("hidden");
+      albumDetails.innerHTML = `
+        <div class="album-header">
+          <img src="${album.cover}" alt="${album.title}">
+          <div>
+            <h2>${album.title}</h2>
+            <p>${album.artist}</p>
+            <button onclick="playAll(${JSON.stringify(album.tracks).replace(/"/g, '&quot;')})">Play All</button>
+          </div>
+        </div>
+      `;
+      trackList.innerHTML = "";
+      album.tracks.forEach((track, i) => {
+        const div = document.createElement("div");
+        div.className = "track";
+        div.innerHTML = `
+          <span>${i + 1}. ${track.title}</span>
+          <button onclick="playSong('${track.file}')">▶️</button>
+          <button onclick="likeSong('${track.title}')">❤️</button>
+        `;
+        trackList.appendChild(div);
+      });
+    }
+
+    backBtn.onclick = () => {
+      albumList.classList.remove("hidden");
+      albumView.classList.add("hidden");
+      audioPlayer.pause();
+    };
+
+    function playSong(file) {
+      audioPlayer.src = file;
+      audioPlayer.play();
+    }
+
+    function playAll(tracks) {
+      let i = 0;
+      playSong(tracks[i].file);
+      audioPlayer.onended = () => {
+        i++;
+        if (i < tracks.length) playSong(tracks[i].file);
+      };
+    }
+
+    function likeSong(title) {
+      const liked = JSON.parse(localStorage.getItem("likedSongs") || "[]");
+      if (!liked.includes(title)) liked.push(title);
+      localStorage.setItem("likedSongs", JSON.stringify(liked));
+      alert(`Liked ${title}!`);
+    }
+
+    // Upload System
+    const uploadInput = document.getElementById("uploadInput");
+    const uploadList = document.getElementById("uploadList");
+    let myUploads = JSON.parse(localStorage.getItem("myUploads") || "[]");
+
+    function renderUploads() {
+      uploadList.innerHTML = "";
+      myUploads.forEach((file, i) => {
+        const div = document.createElement("div");
+        div.className = "upload-item";
+        div.innerHTML = `
+          <span>${file.name}</span>
+          <button onclick="playUploaded(${i})">▶️</button>
+          <button onclick="removeUpload(${i})">🗑️</button>
+        `;
+        uploadList.appendChild(div);
+      });
+      localStorage.setItem("myUploads", JSON.stringify(myUploads));
+    }
+
+    uploadInput.onchange = e => {
+      const files = Array.from(e.target.files).map(f => ({
+        name: f.name,
+        url: URL.createObjectURL(f)
+      }));
+      myUploads = [...myUploads, ...files];
+      renderUploads();
+    };
+
+    function playUploaded(i) {
+      audioPlayer.src = myUploads[i].url;
+      audioPlayer.play();
+    }
+
+    function removeUpload(i) {
+      myUploads.splice(i, 1);
+      renderUploads();
+    }
+
+    renderUploads();
+
+    // Projects (simple prototype)
+    const newProjectBtn = document.getElementById("newProjectBtn");
+    const projectList = document.getElementById("projectList");
+    let projects = JSON.parse(localStorage.getItem("projects") || "[]");
+
+    function renderProjects() {
+      projectList.innerHTML = "";
+      projects.forEach((p, i) => {
+        const div = document.createElement("div");
+        div.className = "project-item";
+        div.innerHTML = `
+          <h3>${p.name}</h3>
+          <p>${p.files.length} audio files</p>
+          <button onclick="addToProject(${i})">Add File</button>
+          <button onclick="publishProject(${i})">Publish</button>
+        `;
+        projectList.appendChild(div);
+      });
+      localStorage.setItem("projects", JSON.stringify(projects));
+    }
+
+    newProjectBtn.onclick = () => {
+      const name = prompt("Project name:");
+      if (name) {
+        projects.push({ name, files: [] });
+        renderProjects();
+      }
+    };
+
+    function addToProject(i) {
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = ".mp3";
+      input.onchange = e => {
+        const file = e.target.files[0];
+        projects[i].files.push(file.name);
+        renderProjects();
+      };
+      input.click();
+    }
+
+    function publishProject(i) {
+      alert(`Published project: ${projects[i].name}!`);
+    }
+
+    renderProjects();
+  </script>
+</body>
+</html>
