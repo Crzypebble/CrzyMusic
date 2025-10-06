@@ -1,198 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CRZYCLANs Eyes | Home</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/feather-icons"></script>
-  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-  <style>
-    @keyframes glow {
-      0%, 100% { text-shadow: 0 0 10px rgba(220, 38, 38, 0.7); }
-      50% { text-shadow: 0 0 20px rgba(220, 38, 38, 1); }
-    }
-    .glow-text { animation: glow 2s infinite ease-in-out; }
-    .glass-card {
-      backdrop-filter: blur(16px);
-      background: rgba(26, 26, 46, 0.5);
-      border: 1px solid rgba(220, 38, 38, 0.2);
-    }
-    .glass-card:hover {
-      border-color: rgba(220, 38, 38, 0.6);
-      box-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
-    }
-    .bg-dark-gradient {
-      background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrzyClan - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
 </head>
-<body class="bg-dark-gradient min-h-screen text-white font-['Poppins']">
+<body>
+    <header class="header">
+        <div class="logo">CrzyClan</div>
+        <nav>
+            <a href="index.html" class="active">Home</a>
+            <a href="journal.html">Journal</a>
+            <a href="music.html">Music</a>
+            <a href="settings.html">Settings</a>
+        </nav>
+    </header>
 
-  <!-- Navbar -->
-  <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-black/50 border-b border-gray-800/50">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-      <div class="flex items-center space-x-2">
-        <span class="text-2xl font-bold">CRZYCLANs <span class="glow-text">Eyes</span></span>
-      </div>
-      <div class="hidden md:flex space-x-6">
-        <a href="index.html" class="text-red-500 border-b-2 border-red-500 pb-1">Home</a>
-        <a href="music.html" class="hover:text-red-500 transition">Music</a>
-        <a href="social.html" class="hover:text-red-500 transition">Pebble's Corner</a>
-        <a href="journal.html" class="hover:text-red-500 transition">Journal</a>
-        <a href="settings.html" class="hover:text-red-500 transition">Settings</a>
-      </div>
-      <button class="md:hidden" id="mobile-menu-button">
-        <i data-feather="menu"></i>
-      </button>
-    </div>
-    <div class="md:hidden hidden bg-black/90 backdrop-blur-lg py-2" id="mobile-menu">
-      <div class="container mx-auto px-4 flex flex-col space-y-3">
-        <a href="index.html" class="text-red-500 py-2">Home</a>
-        <a href="music.html" class="py-2 hover:text-red-500">Music</a>
-        <a href="social.html" class="py-2 hover:text-red-500">Pebble's Corner</a>
-        <a href="journal.html" class="py-2 hover:text-red-500">Journal</a>
-        <a href="settings.html" class="py-2 hover:text-red-500">Settings</a>
-      </div>
-    </div>
-  </nav>
+    <main>
+        <section class="intro">
+            <h1>Welcome to CrzyClan</h1>
+            <p>Discover, share, and create music with others in the community.</p>
+        </section>
 
-  <!-- Main Content -->
-  <main class="pt-24 pb-12 px-4 container mx-auto">
-    <section class="text-center mb-16">
-      <h1 class="text-5xl md:text-6xl font-bold mb-4">Welcome to <span class="glow-text">CRZYCLANs Eyes</span></h1>
-      <p class="text-xl text-gray-300">Your world. Your sound. Your story.</p>
-    </section>
-
-    <!-- Guest Content -->
-    <section id="guest-content" class="mb-16">
-      <h2 class="text-3xl font-bold mb-6 text-center">What We Offer</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="glass-card rounded-xl p-6">
-          <div class="w-20 h-20 mx-auto bg-red-500/20 rounded-full flex items-center justify-center mb-4">
-            <i data-feather="headphones" class="text-red-500" width="28" height="28"></i>
-          </div>
-          <h3 class="text-xl font-semibold mb-2 text-center">Music Creation</h3>
-          <p class="text-gray-300 text-center">Build your sound with our powerful digital audio workstation and sample library</p>
-        </div>
-        <div class="glass-card rounded-xl p-6">
-          <div class="w-20 h-20 mx-auto bg-red-500/20 rounded-full flex items-center justify-center mb-4">
-            <i data-feather="users" class="text-red-500" width="28" height="28"></i>
-          </div>
-          <h3 class="text-xl font-semibold mb-2 text-center">Creative Community</h3>
-          <p class="text-gray-300 text-center">Connect with fellow artists, share projects, and get feedback</p>
-        </div>
-        <div class="glass-card rounded-xl p-6">
-          <div class="w-20 h-20 mx-auto bg-red-500/20 rounded-full flex items-center justify-center mb-4">
-            <i data-feather="trending-up" class="text-red-500" width="28" height="28"></i>
-          </div>
-          <h3 class="text-xl font-semibold mb-2 text-center">Growth Tools</h3>
-          <p class="text-gray-300 text-center">Analytics, promotion tools, and distribution to major platforms</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Dynamic Music Section -->
-    <section class="mb-16">
-      <h2 class="text-3xl font-bold mb-6 text-center">Popular Uploads</h2>
-      <div id="trending-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Fallback content will appear here -->
-      </div>
-    </section>
-
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <a href="music.html" class="glass-card rounded-xl p-6 transition-all duration-300 transform hover:-translate-y-2">
-        <div class="flex flex-col items-center text-center">
-          <div class="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mb-4">
-            <i data-feather="music" class="text-red-500" width="24" height="24"></i>
-          </div>
-          <h3 class="text-xl font-semibold mb-2">Music</h3>
-          <p class="text-gray-300">Your personal audio universe</p>
-        </div>
-      </a>
-      <a href="social.html" class="glass-card rounded-xl p-6 transition-all duration-300 transform hover:-translate-y-2">
-        <div class="flex flex-col items-center text-center">
-          <div class="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mb-4">
-            <i data-feather="message-circle" class="text-red-500" width="24" height="24"></i>
-          </div>
-          <h3 class="text-xl font-semibold mb-2">Pebble's Corner</h3>
-          <p class="text-gray-300">Connect with the clan</p>
-        </div>
-      </a>
-      <a href="journal.html" class="glass-card rounded-xl p-6 transition-all duration-300 transform hover:-translate-y-2">
-        <div class="flex flex-col items-center text-center">
-          <div class="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mb-4">
-            <i data-feather="book" class="text-red-500" width="24" height="24"></i>
-          </div>
-          <h3 class="text-xl font-semibold mb-2">Journal</h3>
-          <p class="text-gray-300">Document your journey</p>
-        </div>
-      </a>
-      <a href="settings.html" class="glass-card rounded-xl p-6 transition-all duration-300 transform hover:-translate-y-2">
-        <div class="flex flex-col items-center text-center">
-          <div class="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mb-4">
-            <i data-feather="settings" class="text-red-500" width="24" height="24"></i>
-          </div>
-          <h3 class="text-xl font-semibold mb-2">Settings</h3>
-          <p class="text-gray-300">Customize your experience</p>
-        </div>
-      </a>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="py-6 border-t border-gray-800/50 mt-12">
-    <div class="container mx-auto px-4 text-center text-gray-400">
-      <p>© 2025 CRZYCLANs Eyes. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script>
-    feather.replace();
-
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    mobileMenuButton.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-
-    // Load dynamic uploads
-    async function loadMusic() {
-      const grid = document.getElementById('trending-grid');
-      try {
-        const res = await fetch('musicdata.json');
-        const data = await res.json();
-
-        grid.innerHTML = data.map(track => `
-          <div class="glass-card rounded-xl overflow-hidden hover:shadow-red-500/20 hover:shadow-lg transition-all">
-            <img src="${track.cover}" alt="${track.title}" class="w-full h-48 object-cover">
-            <div class="p-4">
-              <h3 class="text-xl font-semibold mb-1">${track.title}</h3>
-              <p class="text-gray-300 text-sm mb-2">by ${track.artist}</p>
-              <div class="flex items-center text-yellow-400">
-                <i data-feather="star" class="w-4 h-4 mr-1"></i>
-                <span>${track.rating} (${track.plays})</span>
-              </div>
+        <section class="trending">
+            <h2>Popular Uploads</h2>
+            <div id="popular-container" class="card-grid">
+                <!-- Cards load dynamically -->
             </div>
-          </div>
-        `).join('');
-      } catch (err) {
-        console.warn('Could not fetch musicdata.json, using fallback.');
-        grid.innerHTML = `
-          <div class="glass-card rounded-xl overflow-hidden"><img src="http://static.photos/music/640x360/1" class="w-full h-48 object-cover"><div class="p-4"><h3 class="text-xl font-semibold mb-1">Midnight Vibes</h3><p class="text-gray-300 text-sm mb-2">by ProducerXYZ</p></div></div>
-          <div class="glass-card rounded-xl overflow-hidden"><img src="http://static.photos/music/640x360/2" class="w-full h-48 object-cover"><div class="p-4"><h3 class="text-xl font-semibold mb-1">Urban Dreams</h3><p class="text-gray-300 text-sm mb-2">by BeatMaster</p></div></div>
-          <div class="glass-card rounded-xl overflow-hidden"><img src="http://static.photos/music/640x360/3" class="w-full h-48 object-cover"><div class="p-4"><h3 class="text-xl font-semibold mb-1">Synthwave Sunset</h3><p class="text-gray-300 text-sm mb-2">by RetroSound</p></div></div>
-        `;
-      } finally {
-        feather.replace();
-      }
-    }
+        </section>
+    </main>
 
-    loadMusic();
-  </script>
+    <footer>
+        <p>© 2025 CrzyClan | Community-driven music hub</p>
+    </footer>
+
+    <script>
+        async function loadPopularUploads() {
+            const container = document.getElementById("popular-container");
+            container.innerHTML = "";
+
+            try {
+                const res = await fetch("musicdata.json");
+                const data = await res.json();
+
+                if (!Array.isArray(data) || data.length === 0) throw new Error();
+
+                data.forEach(song => {
+                    const card = document.createElement("div");
+                    card.className = "music-card";
+                    card.innerHTML = `
+                        <img src="${song.cover}" alt="${song.title}">
+                        <h3>${song.title}</h3>
+                        <p>${song.artist}</p>
+                        <span class="genre">${song.genre}</span>
+                    `;
+                    card.addEventListener("click", () => {
+                        window.location.href = "music.html";
+                    });
+                    container.appendChild(card);
+                });
+            } catch {
+                const fallback = [
+                    { title: "Midnight Vibes", artist: "CrzyClan", cover: "music/midnight.jpg", genre: "Lo-Fi" },
+                    { title: "Ocean Drive", artist: "CrzyClan", cover: "music/oceandrive.jpg", genre: "Chillwave" },
+                    { title: "Skyline Dreams", artist: "CrzyClan", cover: "music/skyline.jpg", genre: "Synthwave" }
+                ];
+
+                fallback.forEach(song => {
+                    const card = document.createElement("div");
+                    card.className = "music-card";
+                    card.innerHTML = `
+                        <img src="${song.cover}" alt="${song.title}">
+                        <h3>${song.title}</h3>
+                        <p>${song.artist}</p>
+                        <span class="genre">${song.genre}</span>
+                    `;
+                    card.addEventListener("click", () => {
+                        window.location.href = "music.html";
+                    });
+                    container.appendChild(card);
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", loadPopularUploads);
+    </script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #0b0b0b;
+            color: #f1f1f1;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1em 2em;
+            background: #111;
+            border-bottom: 1px solid #222;
+        }
+
+        .logo {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #ff4b2b;
+        }
+
+        nav a {
+            color: #ccc;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            color: #ff4b2b;
+        }
+
+        main {
+            padding: 2em;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 3em;
+        }
+
+        .trending h2 {
+            margin-bottom: 1em;
+            font-size: 1.8em;
+            color: #ff4b2b;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5em;
+        }
+
+        .music-card {
+            background: #161616;
+            border-radius: 15px;
+            padding: 1em;
+            transition: transform 0.3s ease, background 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .music-card:hover {
+            transform: translateY(-5px);
+            background: #1e1e1e;
+        }
+
+        .music-card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 0.8em;
+        }
+
+        .music-card h3 {
+            margin: 0.3em 0 0.2em;
+        }
+
+        .music-card p {
+            color: #aaa;
+            margin: 0;
+        }
+
+        .genre {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff4b2b, #ff416c);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8em;
+            padding: 4px 10px;
+            margin-top: 0.5em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5em;
+            background: #111;
+            color: #777;
+            border-top: 1px solid #222;
+            margin-top: 3em;
+        }
+    </style>
 </body>
 </html>
