@@ -1,20 +1,23 @@
-[
+{
+  "albums": [
     {
-        "title": "Lost In The City",
-        "artist": "CrzyClan",
-        "cover": "Thumbnails/lostcity.jpg",
-        "genre": "Hip-Hop"
+      "title": "Midnight Vibes",
+      "artist": "DJ ShadowFox",
+      "cover": "https://i.imgur.com/xHZzE3C.jpeg",
+      "tracks": [
+        { "title": "Moonlight Drive", "file": "music/moonlight.mp3" },
+        { "title": "Neon Dream", "file": "music/neondream.mp3" },
+        { "title": "Late Hours", "file": "music/latehours.mp3" }
+      ]
     },
     {
-        "title": "Electric Sunset",
-        "artist": "DJ Flux",
-        "cover": "Thumbnails/sunset.jpg",
-        "genre": "Synthwave"
-    },
-    {
-        "title": "Dreamlight",
-        "artist": "Ava Lune",
-        "cover": "Thumbnails/dreamlight.jpg",
-        "genre": "Ambient"
+      "title": "Sunset Highway",
+      "artist": "CrzyClan",
+      "cover": "https://i.imgur.com/3mZYJXK.jpeg",
+      "tracks": [
+        { "title": "Orange Skies", "file": "music/orangeskies.mp3" },
+        { "title": "Endless Drive", "file": "music/endlessdrive.mp3" }
+      ]
     }
-]
+  ]
+}
