@@ -1,0 +1,20 @@
+[
+    {
+        "title": "Lost In The City",
+        "artist": "CrzyClan",
+        "cover": "music/lostcity.jpg",
+        "genre": "Hip-Hop"
+    },
+    {
+        "title": "Electric Sunset",
+        "artist": "DJ Flux",
+        "cover": "music/sunset.jpg",
+        "genre": "Synthwave"
+    },
+    {
+        "title": "Dreamlight",
+        "artist": "Ava Lune",
+        "cover": "music/dreamlight.jpg",
+        "genre": "Ambient"
+    }
+]
