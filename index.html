@@ -57,6 +57,9 @@
                         <span class="genre">${song.genre}</span>
                     `;
                     card.addEventListener("click", () => {
+                        // Save selected song data to localStorage
+                        localStorage.setItem("selectedSong", JSON.stringify(song));
+                        // Redirect to the music page
                         window.location.href = "music.html";
                     });
                     container.appendChild(card);
@@ -78,6 +81,7 @@
                         <span class="genre">${song.genre}</span>
                     `;
                     card.addEventListener("click", () => {
+                        localStorage.setItem("selectedSong", JSON.stringify(song));
                         window.location.href = "music.html";
                     });
                     container.appendChild(card);
