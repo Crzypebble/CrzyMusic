@@ -1,30 +1,320 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+/* ────────────────
+   GLOBAL SITE STYLE
+──────────────────*/
+
+:root {
+  --bg-color: #0b0b0b;
+  --bg-alt: #141414;
+  --accent: #ff004c;
+  --text-color: #fff;
+  --text-muted: #a0a0a0;
+  --card-bg: #1a1a1a;
+  --border-color: #2a2a2a;
+  --hover: #1e1e1e;
+  --radius: 14px;
+  --transition: 0.25s ease;
+  --font-main: "Inter", "Poppins", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-main);
+}
 
 body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
-    color: #e2e8f0;
+  background: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
 }
 
-.glow-text {
-    text-shadow: 0 0 8px rgba(220, 38, 38, 0.7);
+/* ────────────────
+   NAVIGATION BAR
+──────────────────*/
+
+.navbar {
+  background: var(--bg-alt);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.nav-item:hover {
-    text-shadow: 0 0 12px rgba(220, 38, 38, 0.9);
+.navbar h1 {
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
-.glass-card {
-    backdrop-filter: blur(16px);
-    background: rgba(26, 26, 46, 0.5);
-    border: 1px solid rgba(220, 38, 38, 0.2);
+.navbar .accent {
+  color: var(--accent);
 }
 
-.glass-card:hover {
-    border-color: rgba(220, 38, 38, 0.6);
-    box-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
+.navbar nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-left: 1.5rem;
+  font-weight: 500;
+  transition: var(--transition);
 }
 
-.bg-dark-gradient {
-    background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+.navbar nav a:hover,
+.navbar nav a.active {
+  color: var(--accent);
+}
+
+/* ────────────────
+   MAIN CONTENT
+──────────────────*/
+
+main {
+  padding: 2rem;
+  flex: 1;
+}
+
+/* ────────────────
+   GRID LAYOUTS
+──────────────────*/
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+/* ────────────────
+   ALBUM CARDS
+──────────────────*/
+
+.album-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: var(--transition);
+  cursor: pointer;
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+.album-card:hover {
+  background: var(--hover);
+  transform: scale(1.03);
+}
+
+.album-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.album-card h3 {
+  margin-top: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.album-card p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ────────────────
+   ALBUM VIEW
+──────────────────*/
+
+.hidden {
+  display: none;
+}
+
+.album-header {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  align-items: center;
+}
+
+.album-header img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: 0 0 20px rgba(255, 0, 76, 0.3);
+}
+
+.album-header h2 {
+  margin-bottom: 0.5rem;
+}
+
+.album-header button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: var(--radius);
+  margin-top: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.album-header button:hover {
+  background: #ff3370;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card-bg);
+  padding: 0.7rem 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 0.5rem;
+  transition: var(--transition);
+}
+
+.track:hover {
+  background: var(--hover);
+}
+
+.track button {
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-left: 0.5rem;
+}
+
+/* ────────────────
+   MY UPLOADS
+──────────────────*/
+
+#myUploads,
+#projects {
+  margin-top: 3rem;
+}
+
+#uploadInput {
+  display: block;
+  margin: 1rem 0;
+}
+
+.upload-item,
+.project-item {
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+
+.upload-item button,
+.project-item button {
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.upload-item button:hover,
+.project-item button:hover {
+  color: #ff3370;
+}
+
+#newProjectBtn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+#newProjectBtn:hover {
+  background: #ff3370;
+}
+
+/* ────────────────
+   FOOTER / AUDIO PLAYER
+──────────────────*/
+
+footer {
+  background: var(--bg-alt);
+  border-top: 1px solid var(--border-color);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  bottom: 0;
+  z-index: 99;
+}
+
+audio {
+  width: 100%;
+  max-width: 800px;
+  outline: none;
+}
+
+/* ────────────────
+   SCROLLBAR + ANIMATION
+──────────────────*/
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+button,
+a {
+  transition: var(--transition);
+}
+
+section h2 {
+  margin-bottom: 1rem;
+}
+
+/* ────────────────
+   RESPONSIVE
+──────────────────*/
+
+@media (max-width: 768px) {
+  .album-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .album-header img {
+    width: 100%;
+    height: auto;
+  }
+
+  .navbar nav a {
+    margin-left: 0.8rem;
+  }
+
+  main {
+    padding: 1.2rem;
+  }
 }
